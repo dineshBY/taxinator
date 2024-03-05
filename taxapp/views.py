@@ -39,6 +39,7 @@ def personal_page(request):
 
 
 def cal_corporate(request):
+    return render(request, "taxapp/popup.html", {"message": "Invalid data"})
     from .forms import CorporateForm
 
     if request.method == "POST":
