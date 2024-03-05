@@ -101,6 +101,7 @@ def calculate_emi(request):
         form_data = EMIForm(request.POST)
         if form_data.is_valid() and form_data.cleaned_data.get("principal") > 0 and form_data.cleaned_data.get("rate") > 0 and form_data.cleaned_data.get("tenure") > 0:
             form_data = form_data.cleaned_data
+            print(form_data)
             response = requests.post("https://taxinator.onrender.com/myapi/calc_emi/",
                                      data=form_data,
                                      )
