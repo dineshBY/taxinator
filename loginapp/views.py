@@ -71,15 +71,15 @@ def validatelogin(request):
 
 
 def my_userprofile_page(request):
-    existing_record = MyModel.objects.get(user_name=request.session["user_name"])
+    existing_record = MyModel.objects.get(user_name=request.session['user_name'])
     import sqlite3
     con = sqlite3.connect("db.sqlite3")
     cur = con.cursor()
-    cur.execute(f"select * from history_table where email='test@test.com'")
+    cur.execute(f"select * from history_table where email='{request.session['email']}'")
     res = cur.fetchall()
     import sqlite3
     con = sqlite3.connect("db.sqlite3")
     cur = con.cursor()
-    cur.execute(f"select * from users_QA where username='{request.session["user_name"]}' and Answers!=''")
+    cur.execute(f"select * from users_QA where username='{request.session['user_name']}' and Answers!=''")
     res1 = cur.fetchall()
     return render(request, "loginapp/userprofile.html", {"user_details" : existing_record , "history" : res, "res":res1 })
