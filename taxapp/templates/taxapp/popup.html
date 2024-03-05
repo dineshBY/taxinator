@@ -1,84 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible"
-		content="IE=edge">
-	<meta name="viewport"
-		content="width=device-width,
-				initial-scale=1.0">
-	<style>
-		.box {
-			background-color: black;
-			height: 100vh;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
-
-		p {
-			font-size: 17px;
-			align-items: center;
-		}
-
-		.box a {
-			display: inline-block;
-			background-color: #fff;
-			padding: 15px;
-			border-radius: 3px;
-		}
-
-		.modal {
-			align-items: center;
-			display: flex;
-			justify-content: center;
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			left: 0;
-			right: 0;
-			background: rgba(254, 126, 126, 0.7);
-			transition: all 0.4s;
-			visibility: visible;
-			opacity: 0;
-		}
-
-		.content {
-			position: absolute;
-			background: white;
-			width: 400px;
-			padding: 1em 2em;
-			border-radius: 4px;
-		}
-
-		.modal:target {
-			visibility: visible;
-			opacity: 1;
-		}
-
-		.box-close {
-			position: absolute;
-			top: 0;
-			right: 15px;
-			color: #fe0606;
-			text-decoration: none;
-			font-size: 30px;
-		}
-	</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Popup Message Box Example</title>
+<style>
+    /* CSS for the popup */
+    .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 20px;
+        z-index: 9999;
+    }
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+    }
+</style>
 </head>
-
 <body>
-	<div class="modal">
-		<div class="content">
-			<h1 style="color: green;">
-                {{ message }}
-			</h1>
-			<a href="/tax/corporate/" class="box-close">
-				×
-			</a>
-		</div>
-	</div>
-</body>
 
+<div id="popup" class="popup">
+    <h2>{{ message }}</h2>
+    <button onclick="closePopup()">OK</button>
+</div>
+
+<div id="overlay" class="overlay"></div>
+
+<script>
+    // JavaScript to control the popup
+    window.onload = function() {
+        document.getElementById('popup').style.display = 'block';
+        document.getElementById('overlay').style.display = 'block';
+    };
+
+    function closePopup() {
+        document.getElementById('popup').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    }
+</script>
+
+</body>
 </html>
