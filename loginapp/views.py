@@ -75,7 +75,7 @@ def my_userprofile_page(request):
     import sqlite3
     con = sqlite3.connect("db.sqlite3")
     cur = con.cursor()
-    cur.execute(f"select * from history_table where email='{request.session["email"]}'")
+    cur.execute(f"select * from history_table where email='test@test.com'")
     res = cur.fetchall()
     import sqlite3
     con = sqlite3.connect("db.sqlite3")
