@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <link rel="icon" type="image/x-icon" href="{%static 'images/1349019298.jpg' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<style>
+bg-image {
+  background-image: url('{% static 'images/login_page.jpg' %}');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+
+
+/*
+* Hero Section
+*/
+.hero {
+  position: relative;
+  height: 100vh;
+  background-color: var(--primary-color);
+  overflow: hidden;
+}
+
+@media (min-width: 1400px) {
+  .hero__heading {
+      font-size: 3.2rem;
+  }
+}
+
+.hero__video {
+  position: absolute;
+  top:50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.hero__overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--primary-color);
+  opacity: 0.8;
+  z-index: 1;
+}
+
+.hero__content {
+  z-index: 1;
+  transform: translateX(10%);
+}
+
+.hero__content-width {
+  max-width: 540px;
+}
+
+.hero__scroll-btn {
+  position: absolute;
+  transform: translateX(10%);
+  z-index: 1;
+  color: var(--bs-light);
+  align-items: center;
+  text-decoration: none;
+}
+
+.hero__scroll-btn:hover {
+  color: var(--bs-light);
+  opacity: 0.8;
+}
+
+.hero__scroll-btn .bi {
+  transition-delay: 0.8s;
+  animation: bounce 1s infinite alternate;
+}
+
+
+@keyframes bounce {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-50px);
+  }
+}
+
+    /*
+* Steps Section
+*/
+.steps {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+.steps__section-thumbnail {
+  height: 240px;
+  object-fit: cover;
+  margin: 0 auto;
+}
+
+.steps__content-width {
+  max-width: 456px;
+  margin: 0 auto;
+}
+
+.steps--background {
+  background-color: #FEF8F9;
+}
+
+@media (min-width: 544px) {
+  .steps {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  .steps__section-thumbnail {
+    height: auto;
+  }
+}
+
+</style>
+<body>
+
+
+
+
+<!-- Hero Start -->
+  <section class="hero">
+
+    <div class="hero__overlay">
+
+    <!-- Video not included. Download: https://www.pexels.com/video/two-people-in-front-of-a-campfire-pouring-water-from-a-kettle-2675515/ -->
+    <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop" loading="lazy" class="hero__video">
+      <source src="{% static 'temp2.mp4' %}" type="video/mp4">
+    </video>
+    </div>
+    <div class="hero__content h-100 container-custom position-relative">
+      <div class="d-flex h-100 align-items-center hero__content-width">
+        <div class="text-white">
+          <h1 class="hero__heading fw-bold mb-4">Discover The Way Taxes are Calculated.</h1>
+          <p class="lead mb-4">This is the website to calculate taxes.</p>
+          <a href="#scroll-down" class="mt-2 btn btn-lg btn-outline-light hero__scroll-btn" role="button">LOGIN</a>
+        </div>
+      </div>
+    </div>
+
+    <a href="#scroll-down" class="hero__scroll-btn">
+      Explore <i class="bi bi-arrow-down-short"></i>
+    </a>
+
+  </section>
+  <!-- Hero End -->
+<a id="scroll-down"></a>
+  <!-- Section One Start -->
+  <section class="hero" style="background-color:#FFF5EE">
+    {% if messages %}
+    {%for message in messages %}
+      {% if message.tags == 'error' %}
+        <div class="alert alert-danger" role="alert">{{ message }}</div>
+      {% else %}
+        <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+      {% endif %}
+    {% endfor %}
+{% endif %}
+
+    <div class="container">
+    <div class="row justify-content-center mt-5 pt-5">
+     <div class = "col justify-content-center mt-5 col-lg-4">
+         <form method="post" action="/validatelogin/">
+             {% csrf_token %}
+             <br><br>
+             {{ login_form.email }}
+             <br>
+             {{ login_form.password}}
+             <br><br>
+        <button type="submit" class="btn btn-primary scroll-down">Login</button>
+             <br><br>
+         </form>
+         <a href="/register/">New User? Click to Register</a>
+    </div>
+    </div>
+    </div>
+  </section>
+  <!-- Section One End
+<h2>Login to the website</h2>
+
+    <form>
+
+    <div class="container">
+    <div class="row justify-content-center mt-5">
+     <div class = "col justify-content-center mt-5 col-lg-6">
+         <form method="post" action="/validatelogin">
+        <div class="mb-3">
+        <label for="loginname" class="form-label">User Name</label>
+        <input type="text" class="form-control" id="loginname" name="loginname" required>
+        </div>
+        <div class="mb-3">
+            <label for="loginemail" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="loginemail" name="loginemail" required>
+        </div>
+        <div class="mb-3">
+            <label for="loginpwd" class="form-label">Password</label>
+            <input type="password" class="form-control" id="loginpwd" name="loginpwd" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+         </form>
+    </div>
+    </div>
+    </div>
+</form>
+-->
+</body>
+</html>

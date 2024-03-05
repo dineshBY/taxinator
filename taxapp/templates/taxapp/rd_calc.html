@@ -1,0 +1,50 @@
+{% extends 'mytemplate.html' %}
+{% load static %}
+{% block mycontent %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css">
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<div style="background-image:url({% static 'images/169016.jpg' %}); background-size:cover; background-attachment: fixed;">
+<div class="mask" style="height:100vh; background: linear-gradient(0deg, hsla(0, 0%, 0%, 0.7), hsla(0, 0%, 0%, 0.0) 100%);">
+<br><br><br>
+<div class="container">
+    <div class="row">
+                <div class="col-12 text-center">
+                        <h1 class="fw-semibold">RD CALCULATOR</h1>
+                </div>
+    </div>
+    <div class="row md-5 justify-content-center">
+        <div class="col col-md-4 justify-content-center">
+
+          <form class="card mb-3 p-4 bg-light" action="/tax/calculate_rd/" method="POST">
+                     {% csrf_token %}
+                     Monthly Investment {{ rd_form.principal }}
+                     <br>
+                     Rate of Interest (p.a) {{ rd_form.rate }}
+                     <br>
+                     Time Period {{ rd_form.tenure }}
+                     <br>
+                     <button type="submit" class="btn btn-primary">Calculate</button>
+                 </form>
+ <br>
+<div>
+    {% if messages %}
+    {%for message in messages %}
+      {% if message.tags == 'error' %}
+        <div class="alert alert-danger" role="alert">{{ message }}</div>
+      {% else %}
+        <div class="alert alert-{{ message.tags }}" role="alert">{{ message }}</div>
+      {% endif %}
+    {% endfor %}
+{% endif %}
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

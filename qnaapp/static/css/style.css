@@ -1,0 +1,4 @@
+body {
+    background-image: url('/static/images/background.jpg');  /* Replace with the path to your background image */
+    background-size: cover;
+}
