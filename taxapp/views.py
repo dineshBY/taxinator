@@ -82,7 +82,7 @@ def cal_personal(request):
             response = response.json()
             new_response = "Tax to be paid: " + response
             messages.success(request, message=new_response)
-            return redirect(request.META['HTTP_REFERER'])
+            return redirect("/tax/personal/")
         else:
             messages.error(request, message="Invalid data")
             return redirect(request.META['HTTP_REFERER'])
