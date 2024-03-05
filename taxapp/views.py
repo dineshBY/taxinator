@@ -48,7 +48,7 @@ def cal_corporate(request):
             net_taxable = form_data.get('net_income') - form_data.get('net_deduction')
             form_data['type'] = "corporate"
             form_data['email'] = request.session["email"]
-            response = requests.post("/myapi/calc_tax/",
+            response = requests.post("https://taxinator.onrender.com/myapi/calc_tax/",
                                      data=form_data,
                                      )
             response = response.json()
@@ -76,7 +76,7 @@ def cal_personal(request):
             form_data['type'] = "personal"
             form_data['email'] = request.session["email"]
 
-            response = requests.post("myapi/calc_tax/",
+            response = requests.post("https://taxinator.onrender.com/myapi/calc_tax/",
                                      data=form_data,
                                      )
             response = response.json()
@@ -101,7 +101,7 @@ def calculate_emi(request):
         form_data = EMIForm(request.POST)
         if form_data.is_valid() and form_data.cleaned_data.get("principal") > 0 and form_data.cleaned_data.get("rate") > 0 and form_data.cleaned_data.get("tenure") > 0:
             form_data = form_data.cleaned_data
-            response = requests.post("taxinator.onrender.com/myapi/calc_emi/",
+            response = requests.post("https://taxinator.onrender.com/myapi/calc_emi/",
                                      data=form_data,
                                      )
             response = response.json()
