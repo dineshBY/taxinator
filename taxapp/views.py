@@ -54,14 +54,13 @@ def cal_corporate(request):
             response = response.json()
             new_response = "Tax to be paid: " + response
             messages.success(request, message=new_response)
-            return render(request, "taxapp/popup.html", {"message": "Tax to be paid","tax":response})
+            return render(request, "taxapp/popup.html", {"message": new_response})
         else:
             messages.error(request, message="Invalid data")
-            return redirect(request.META['HTTP_REFERER'])
+            return render(request, "taxapp/popup.html", {"message": "Invalid data"})
     else:
         messages.error(request, message="Invalid Request")
-        return redirect(request.META['HTTP_REFERER'])
-
+        return render(request, "taxapp/popup.html", {"message": "Error"})
 
 
 def cal_personal(request):
