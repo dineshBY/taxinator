@@ -46,35 +46,35 @@ class MyAPIClass(APIView):
             net_income = valid_data.get("net_income")
             net_deduction = valid_data.get("net_deduction")
             taxable_income = net_income - net_deduction
-
+            return Response(str(valid_data), status=200)
             if valid_data.get("type") == "personal":
                 tax = cal_personal_tax(taxable_income)
             else:
                 tax = cal_corporate_tax(taxable_income)
-            # count = HistoryModel.objects.filter(email=valid_data.get("email"),
-            #                                     assessment_year=valid_data.get("assessment_year"),
-            #                                     type=valid_data.get("type")).count()
-            # if count > 0:
-            #     user = HistoryModel.objects.get(email=valid_data["email"],
-            #                                     assessment_year=valid_data.get("assessment_year"),
-            #                                     type=valid_data.get("type"))
-            #     user.email = valid_data.get("email")
-            #     user.assessment_year = valid_data.get("assessment_year")
-            #     user.type = valid_data.get("type")
-            #     user.net_income = valid_data.get("net_income")
-            #     user.net_deduction = valid_data.get("net_deduction")
-            #     user.tax = tax
-            #     user.save()
-            #
-            # else:
-            #     user = HistoryModel()
-            #     user.email = valid_data.get("email")
-            #     user.assessment_year = valid_data.get("assessment_year")
-            #     user.type = valid_data.get("type")
-            #     user.net_income = valid_data.get("net_income")
-            #     user.net_deduction = valid_data.get("net_deduction")
-            #     user.tax = tax
-            #     user.save()
+            count = HistoryModel.objects.filter(email=valid_data.get("email"),
+                                                assessment_year=valid_data.get("assessment_year"),
+                                                type=valid_data.get("type")).count()
+            if count > 0:
+                user = HistoryModel.objects.get(email=valid_data["email"],
+                                                assessment_year=valid_data.get("assessment_year"),
+                                                type=valid_data.get("type"))
+                user.email = valid_data.get("email")
+                user.assessment_year = valid_data.get("assessment_year")
+                user.type = valid_data.get("type")
+                user.net_income = valid_data.get("net_income")
+                user.net_deduction = valid_data.get("net_deduction")
+                user.tax = tax
+                user.save()
+
+            else:
+                user = HistoryModel()
+                user.email = valid_data.get("email")
+                user.assessment_year = valid_data.get("assessment_year")
+                user.type = valid_data.get("type")
+                user.net_income = valid_data.get("net_income")
+                user.net_deduction = valid_data.get("net_deduction")
+                user.tax = tax
+                user.save()
 
             return Response(str(tax), status=200)
         else:
