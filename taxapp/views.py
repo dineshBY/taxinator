@@ -54,8 +54,12 @@ def cal_corporate(request):
             form_data['type'] = "corporate"
             form_data['email'] = request.session["email"]
             response = requests.post("https://taxinator.onrender.com/myapi/calc_tax/",
-                                     data=form_data,
+                                     data={
+                                         "net_income": 1000000, "net_deduction": 100, "type": "corporate",
+                                         "email": "a@b.com", "assessment_year": "2022-23"
+                                     }
                                      )
+            response = response.json()
             return render(request, "taxapp/popup.html", {"message": response})
             response = response.json()
             new_response = "Tax to be paid: " + response
