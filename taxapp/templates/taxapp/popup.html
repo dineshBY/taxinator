@@ -33,7 +33,7 @@
 
 <div id="popup" class="popup">
     <h2>{{ message }}</h2>
-    <button onclick="closePopup()">OK</button>
+    <a href="/tax/corporate/">OK</a>
 </div>
 
 <div id="overlay" class="overlay"></div>
@@ -44,10 +44,6 @@
         document.getElementById('popup').style.display = 'block';
         document.getElementById('overlay').style.display = 'block';
     };
-
-    function closePopup() {
-        return window.location.replace("{% url '/tax/corporate/' %}")
-    }
 </script>
 
 </body>
