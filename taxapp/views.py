@@ -39,26 +39,29 @@ def personal_page(request):
 
 
 def cal_corporate(request):
-    # return render(request, "taxapp/popup.html", {"message": "Invalid data"})
     from .forms import CorporateForm
+    form_data = CorporateForm(request.POST)
+    return render(request, "taxapp/popup.html", {"message": form_data})
 
-    if request.method == "POST":
-        form_data = CorporateForm(request.POST)
-        if form_data.is_valid() and form_data.cleaned_data.get("net_income") > 0 and form_data.cleaned_data.get("net_deduction") > 0:
-            form_data = form_data.cleaned_data
-            net_taxable = form_data.get('net_income') - form_data.get('net_deduction')
-            form_data['type'] = "corporate"
-            form_data['email'] = request.session["email"]
-            response = requests.post("https://taxinator.onrender.com/myapi/calc_tax/",
-                                     data=form_data,
-                                     )
-            response = response.json()
-            new_response = "Tax to be paid: " + response
-            return render(request, "taxapp/popup.html", {"message": new_response})
-        else:
-            return render(request, "taxapp/popup.html", {"message": "Invalid data"})
-    else:
-        return render(request, "taxapp/popup.html", {"message": "Error"})
+    # from .forms import CorporateForm
+    #
+    # if request.method == "POST":
+    #     form_data = CorporateForm(request.POST)
+    #     if form_data.is_valid() and form_data.cleaned_data.get("net_income") > 0 and form_data.cleaned_data.get("net_deduction") > 0:
+    #         form_data = form_data.cleaned_data
+    #         net_taxable = form_data.get('net_income') - form_data.get('net_deduction')
+    #         form_data['type'] = "corporate"
+    #         form_data['email'] = request.session["email"]
+    #         response = requests.post("https://taxinator.onrender.com/myapi/calc_tax/",
+    #                                  data=form_data,
+    #                                  )
+    #         response = response.json()
+    #         new_response = "Tax to be paid: " + response
+    #         return render(request, "taxapp/popup.html", {"message": new_response})
+    #     else:
+    #         return render(request, "taxapp/popup.html", {"message": "Invalid data"})
+    # else:
+    #     return render(request, "taxapp/popup.html", {"message": "Error"})
 
 
 def cal_personal(request):
