@@ -54,7 +54,7 @@ def cal_corporate(request):
             net_taxable = form_data.get('net_income') - form_data.get('net_deduction')
             form_data['type'] = "corporate"
             form_data['email'] = request.session["email"]
-            return render(request, "taxapp/popup.html", {"message": "form_data"})
+            return render(request, "taxapp/popup.html", {"message": form_data})
             response = requests.post("https://taxinator.onrender.com/myapi/calc_tax/",
                                      data=form_data,
                                      )
