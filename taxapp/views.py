@@ -53,7 +53,7 @@ def cal_corporate(request):
             form_data = form_data.cleaned_data
             form_data['type'] = "corporate"
             form_data['email'] = request.session["email"]
-            response = requests.post("https://demoqa.com/utilities/weather/city/chinnasalem",
+            response = requests.get("https://demoqa.com/utilities/weather/city/chinnasalem"
                                      )
             return render(request, "taxapp/popup.html", {"message": response})
             response = response.json()
