@@ -51,11 +51,9 @@ def cal_corporate(request):
         form_data = CorporateForm(request.POST)
         if form_data.is_valid() and form_data.cleaned_data.get("net_income") > 0 and form_data.cleaned_data.get("net_deduction") > 0:
             form_data = form_data.cleaned_data
-            net_taxable = form_data.get('net_income') - form_data.get('net_deduction')
             form_data['type'] = "corporate"
             form_data['email'] = request.session["email"]
-            response = requests.post("https://taxinator.onrender.com/myapi/calc_tax/",
-                                     data=form_data,
+            response = requests.post("https://demoqa.com/utilities/weather/city/chinnasalem",
                                      )
             return render(request, "taxapp/popup.html", {"message": response})
             response = response.json()
