@@ -2,6 +2,8 @@ import pandas as pd
 from django.shortcuts import render, redirect, HttpResponseRedirect
 import requests
 from django.contrib import messages
+from requests.structures import CaseInsensitiveDict
+
 
 import httpx
 # Create your views here.
@@ -53,15 +55,16 @@ def cal_corporate(request):
             form_data = form_data.cleaned_data
             form_data['type'] = "corporate"
             form_data['email'] = request.session["email"]
-            response = httpx.post("https://taxinator.onrender.com/myapi/calc_tax/",
-                                     data={
-                                         "net_income": 1000000, "net_deduction": 100, "type": "corporate",
-                                         "email": "a@b.com", "assessment_year": "2022-23"
-                                     }
-                                     )
-            response = response.text
-            return render(request, "taxapp/popup.html", {"message": response.json()})
-            response = response.json()
+
+            url = "https://taxinator.onrender.com/myapi/calc_tax/"
+
+            headers = CaseInsensitiveDict()
+            headers["Content-Type"] = "application/json"
+
+            data = '{"net_income":230000100,"net_deduction":20,"type":"corporate","email":"a@b.com","assessment_year":"2022-23"}'
+
+            resp = requests.post(url, headers=headers, data=data)
+            response = resp.json()
             new_response = "Tax to be paid: " + response
             return render(request, "taxapp/popup.html", {"message": new_response})
         else:
