@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, HttpResponseRedirect
 import requests
 from django.contrib import messages
 
-
+import httpx
 # Create your views here.
 
 from .forms import CorporateForm, PersonalForm, EMIForm, FDForm
@@ -53,13 +53,13 @@ def cal_corporate(request):
             form_data = form_data.cleaned_data
             form_data['type'] = "corporate"
             form_data['email'] = request.session["email"]
-            response = requests.post("https://taxinator.onrender.com/myapi/calc_tax/",
+            response = httpx.post("https://taxinator.onrender.com/myapi/calc_tax/",
                                      data={
                                          "net_income": 1000000, "net_deduction": 100, "type": "corporate",
                                          "email": "a@b.com", "assessment_year": "2022-23"
                                      }
                                      )
-            response = response.json()
+            response = response.text
             return render(request, "taxapp/popup.html", {"message": response.json()})
             response = response.json()
             new_response = "Tax to be paid: " + response
