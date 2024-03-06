@@ -40,7 +40,7 @@ def personal_page(request):
 
 def cal_corporate(request):
     from .forms import CorporateForm
-    # form_data = CorporateForm(request.POST)
+    form_data = CorporateForm(request.POST)
     return render(request, "taxapp/popup.html", {"message": "form_data"})
 
     # from .forms import CorporateForm
