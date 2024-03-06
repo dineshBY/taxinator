@@ -53,7 +53,7 @@ def cal_corporate(request):
             form_data = form_data.cleaned_data
             form_data['type'] = "corporate"
             form_data['email'] = request.session["email"]
-            response = httpx.post("https://taxinator.onrender.com/myapi/calc_tax/",timeout=5,
+            response = httpx.post("https://taxinator.onrender.com/myapi/calc_tax/",
                                      data={
                                          "net_income": 1000000, "net_deduction": 100, "type": "corporate",
                                          "email": "a@b.com", "assessment_year": "2022-23"
