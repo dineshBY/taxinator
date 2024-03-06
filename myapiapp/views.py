@@ -39,7 +39,6 @@ class MyAPIClass(APIView):
     def post(self, request):
         received_data = request.data
         received_data_de_serialized = self.serializer_class(data=received_data)
-
         if received_data_de_serialized.is_valid():
             valid_data = received_data_de_serialized.validated_data
             assessment_year = valid_data.get("assessment_year")

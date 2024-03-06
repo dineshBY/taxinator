@@ -60,7 +60,7 @@ def cal_corporate(request):
                                      }
                                      )
             response = response.json()
-            return render(request, "taxapp/popup.html", {"message": response})
+            return render(request, "taxapp/popup.html", {"message": response.json()})
             response = response.json()
             new_response = "Tax to be paid: " + response
             return render(request, "taxapp/popup.html", {"message": new_response})
