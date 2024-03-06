@@ -38,6 +38,7 @@ class MyAPIClass(APIView):
 
     def post(self, request):
         received_data = request.data
+        return Response(str(received_data), status=200)
         received_data_de_serialized = self.serializer_class(data=received_data)
 
         if received_data_de_serialized.is_valid():
@@ -46,7 +47,6 @@ class MyAPIClass(APIView):
             net_income = valid_data.get("net_income")
             net_deduction = valid_data.get("net_deduction")
             taxable_income = net_income - net_deduction
-            return Response(str(valid_data), status=200)
             if valid_data.get("type") == "personal":
                 tax = cal_personal_tax(taxable_income)
             else:
